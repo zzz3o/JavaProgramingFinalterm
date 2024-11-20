@@ -1,6 +1,11 @@
-public class Main {
-    public static void main(String[] args) {
+import javax.swing.*;
 
-        System.out.println("기말 프로젝트");
+public class Main extends JFrame {
+    public Main() {
+        setSize(300,200);
+        setVisible(true);
+    }
+    public static void main(String[] args) {
+        new Main();
     }
 }
