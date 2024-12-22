@@ -14,7 +14,7 @@ public class Main {
     public Main() {
         frame = new JFrame("CJU Meal Tickets");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 600);
+        frame.setSize(320, 568);
         frame.setLayout(new GridLayout(6, 1));
 
         // 타이틀
