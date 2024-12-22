@@ -1,33 +1,54 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Main {
     private JFrame frame;
     private JTextField quantityField;
     private JLabel amountLabel;
-    private String selectedRestaurant;
-    private static final int EMPLOYEE_PRICE = 6000;
-    private static final int OTHER_PRICE = 4500;
+    private RestaurantPanel restaurantPanel;
 
     public Main() {
         frame = new JFrame("CJU Meal Tickets");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(320, 568);
+        frame.setSize(400, 600);
         frame.setLayout(new GridLayout(6, 1));
 
-        // 타이틀
+        // 타이틀 패널
+        JPanel titlePanel = createTitlePanel();
+        frame.add(titlePanel);
+
+        // 입력 패널
+        JPanel inputPanel = createInputPanel();
+        frame.add(inputPanel);
+
+        // 금액 패널
+        JPanel amountPanel = createAmountPanel();
+        frame.add(amountPanel);
+
+        // 식당 패널
+        restaurantPanel = new RestaurantPanel();
+        frame.add(restaurantPanel.getPanel());
+
+        // 결제 버튼
+        JButton paymentButton = new JButton("Payment");
+        paymentButton.addActionListener(e -> handlePayment());
+        frame.add(paymentButton);
+
+        frame.setVisible(true);
+    }
+
+    private JPanel createTitlePanel() {
         JPanel titlePanel = new JPanel(new GridLayout(1, 2));
-        JLabel titleLabel = new JLabel("<html>CJU<br />Meal<br />Tickets</body></html>", JLabel.CENTER);
+        JLabel titleLabel = new JLabel("<html>CJU<br />Meal<br />Tickets</html>", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        JLabel subtitleLabel = new JLabel("<html><body style='text-align:right;'>Nutritious<br />Cheap<br />Near</body></html>", JLabel.CENTER);
+        JLabel subtitleLabel = new JLabel("<html><div style='text-align:right;'>Nutritious<br/>Cheap<br/>Near</div></html>");
         subtitleLabel.setFont(new Font("Arial", Font.ITALIC, 14));
         titlePanel.add(titleLabel);
         titlePanel.add(subtitleLabel);
-        frame.add(titlePanel);
+        return titlePanel;
+    }
 
-        //입력창
+    private JPanel createInputPanel() {
         JPanel inputPanel = new JPanel(new GridLayout(2, 2));
         inputPanel.add(new JLabel("Menu:", SwingConstants.CENTER));
         JLabel menuLabel = new JLabel("-", SwingConstants.CENTER);
@@ -35,81 +56,22 @@ public class Main {
         inputPanel.add(new JLabel("Quantity:", SwingConstants.CENTER));
         quantityField = new JTextField();
         inputPanel.add(quantityField);
-        frame.add(inputPanel);
+        return inputPanel;
+    }
 
-        //결제
+    private JPanel createAmountPanel() {
         JPanel amountPanel = new JPanel(new GridLayout(1, 2));
         amountPanel.add(new JLabel("Amount:", SwingConstants.CENTER));
         amountLabel = new JLabel("0", SwingConstants.CENTER);
         amountPanel.add(amountLabel);
-        frame.add(amountPanel);
-
-        JButton paymentButton = new JButton("Payment");
-        frame.add(paymentButton);
-
-        // 식당
-        JPanel restaurantPanel = new JPanel(new GridLayout(2, 2));
-        JButton studentCafeteria = new JButton("학생식당");
-        JButton employeeCafeteria = new JButton("교직원식당");
-        JButton businessBuilding = new JButton("비즈니스대학");
-        JButton dormCafeteria = new JButton("기숙사식당");
-
-        restaurantPanel.add(studentCafeteria);
-        restaurantPanel.add(employeeCafeteria);
-        restaurantPanel.add(businessBuilding);
-        restaurantPanel.add(dormCafeteria);
-
-        frame.add(restaurantPanel);
-
-        //이벤트
-        studentCafeteria.addActionListener(e -> {
-            selectedRestaurant = "학생식당";
-            menuLabel.setText(selectedRestaurant);
-            updateButtonColors(studentCafeteria, restaurantPanel);
-        });
-
-        employeeCafeteria.addActionListener(e -> {
-            selectedRestaurant = "교직원식당";
-            menuLabel.setText(selectedRestaurant);
-            updateButtonColors(employeeCafeteria, restaurantPanel);
-        });
-
-        businessBuilding.addActionListener(e -> {
-            selectedRestaurant = "비즈니스대학";
-            menuLabel.setText(selectedRestaurant);
-            updateButtonColors(businessBuilding, restaurantPanel);
-        });
-
-        dormCafeteria.addActionListener(e -> {
-            selectedRestaurant = "기숙사식당";
-            menuLabel.setText(selectedRestaurant);
-            updateButtonColors(dormCafeteria, restaurantPanel);
-        });
-
-        paymentButton.addActionListener(e -> calculateAmount());
-
-        frame.setVisible(true);
+        return amountPanel;
     }
 
-    //버튼 색상 변경
-    private void updateButtonColors(JButton selectedButton, JPanel panel) {
-        for (Component component : panel.getComponents()) {
-            if (component instanceof JButton) {
-                JButton button = (JButton) component;
-                if (button == selectedButton) {
-                    button.setBackground(Color.ORANGE);
-                } else {
-                    button.setBackground(null);
-                }
-            }
-        }
-    }
-
-    private void calculateAmount() {
+    private void handlePayment() {
         try {
+            String restaurant = restaurantPanel.getSelectedRestaurant();
             int quantity = Integer.parseInt(quantityField.getText());
-            int price = selectedRestaurant.equals("교직원식당") ? EMPLOYEE_PRICE : OTHER_PRICE;
-            int amount = quantity * price;
+            int amount = PaymentCalculator.calculateAmount(restaurant, quantity);
             amountLabel.setText(String.valueOf(amount));
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(frame, "Please enter a valid quantity.", "Error", JOptionPane.ERROR_MESSAGE);
