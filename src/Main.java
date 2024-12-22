@@ -8,7 +8,8 @@ public class Main {
     private JTextField quantityField;
     private JLabel amountLabel;
     private String selectedRestaurant;
-
+    private static final int EMPLOYEE_PRICE = 6000;
+    private static final int OTHER_PRICE = 4500;
 
     public Main() {
         frame = new JFrame("CJU Meal Tickets");
@@ -25,8 +26,18 @@ public class Main {
         titlePanel.add(titleLabel);
         titlePanel.add(subtitleLabel);
         frame.add(titlePanel);
-        frame.setVisible(true);
 
+        //입력창
+        JPanel inputPanel = new JPanel(new GridLayout(2, 2));
+        inputPanel.add(new JLabel("Menu:", SwingConstants.CENTER));
+        JLabel menuLabel = new JLabel("-", SwingConstants.CENTER);
+        inputPanel.add(menuLabel);
+        inputPanel.add(new JLabel("Quantity:", SwingConstants.CENTER));
+        quantityField = new JTextField();
+        inputPanel.add(quantityField);
+        frame.add(inputPanel);
+
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
