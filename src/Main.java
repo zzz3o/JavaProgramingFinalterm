@@ -86,10 +86,12 @@ public class Main {
             updateButtonColors(dormCafeteria, restaurantPanel);
         });
 
+        paymentButton.addActionListener(e -> calculateAmount());
 
         frame.setVisible(true);
     }
 
+    //버튼 색상 변경
     private void updateButtonColors(JButton selectedButton, JPanel panel) {
         for (Component component : panel.getComponents()) {
             if (component instanceof JButton) {
@@ -103,7 +105,18 @@ public class Main {
         }
     }
 
-
+    private void calculateAmount() {
+        try {
+            int quantity = Integer.parseInt(quantityField.getText());
+            int price = selectedRestaurant.equals("교직원식당") ? EMPLOYEE_PRICE : OTHER_PRICE;
+            int amount = quantity * price;
+            amountLabel.setText(String.valueOf(amount));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame, "Please enter a valid quantity.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(frame, "Please select a restaurant.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     public static void main(String[] args) {
         new Main();
