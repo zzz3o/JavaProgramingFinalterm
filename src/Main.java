@@ -65,30 +65,42 @@ public class Main {
         studentCafeteria.addActionListener(e -> {
             selectedRestaurant = "학생식당";
             menuLabel.setText(selectedRestaurant);
-
+            updateButtonColors(studentCafeteria, restaurantPanel);
         });
 
         employeeCafeteria.addActionListener(e -> {
             selectedRestaurant = "교직원식당";
             menuLabel.setText(selectedRestaurant);
-
+            updateButtonColors(employeeCafeteria, restaurantPanel);
         });
 
         businessBuilding.addActionListener(e -> {
             selectedRestaurant = "비즈니스대학";
             menuLabel.setText(selectedRestaurant);
-
+            updateButtonColors(businessBuilding, restaurantPanel);
         });
 
         dormCafeteria.addActionListener(e -> {
             selectedRestaurant = "기숙사식당";
             menuLabel.setText(selectedRestaurant);
-
+            updateButtonColors(dormCafeteria, restaurantPanel);
         });
 
 
-
         frame.setVisible(true);
+    }
+
+    private void updateButtonColors(JButton selectedButton, JPanel panel) {
+        for (Component component : panel.getComponents()) {
+            if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                if (button == selectedButton) {
+                    button.setBackground(Color.ORANGE);
+                } else {
+                    button.setBackground(null);
+                }
+            }
+        }
     }
 
 
