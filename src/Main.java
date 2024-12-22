@@ -18,10 +18,10 @@ public class Main {
         frame.setLayout(new GridLayout(6, 1));
 
         // 타이틀
-        JPanel titlePanel = new JPanel(new GridLayout(2, 1));
-        JLabel titleLabel = new JLabel("CJU MEAL TICKETS", SwingConstants.CENTER);
+        JPanel titlePanel = new JPanel(new GridLayout(1, 2));
+        JLabel titleLabel = new JLabel("<html>CJU<br />Meal<br />Tickets</body></html>", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        JLabel subtitleLabel = new JLabel("Nutritious  Cheap  Near", SwingConstants.CENTER);
+        JLabel subtitleLabel = new JLabel("<html><body style='text-align:right;'>Nutritious<br />Cheap<br />Near</body></html>", JLabel.CENTER);
         subtitleLabel.setFont(new Font("Arial", Font.ITALIC, 14));
         titlePanel.add(titleLabel);
         titlePanel.add(subtitleLabel);
