@@ -47,6 +47,20 @@ public class Main {
         JButton paymentButton = new JButton("Payment");
         frame.add(paymentButton);
 
+        // 식당
+        JPanel restaurantPanel = new JPanel(new GridLayout(2, 2));
+        JButton studentCafeteria = new JButton("학생식당");
+        JButton employeeCafeteria = new JButton("교직원식당");
+        JButton businessBuilding = new JButton("비즈니스대학");
+        JButton dormCafeteria = new JButton("기숙사식당");
+
+        restaurantPanel.add(studentCafeteria);
+        restaurantPanel.add(employeeCafeteria);
+        restaurantPanel.add(businessBuilding);
+        restaurantPanel.add(dormCafeteria);
+
+        frame.add(restaurantPanel);
+
         frame.setVisible(true);
     }
 
