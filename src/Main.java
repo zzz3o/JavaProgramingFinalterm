@@ -61,8 +61,37 @@ public class Main {
 
         frame.add(restaurantPanel);
 
+        //이벤트
+        studentCafeteria.addActionListener(e -> {
+            selectedRestaurant = "학생식당";
+            menuLabel.setText(selectedRestaurant);
+
+        });
+
+        employeeCafeteria.addActionListener(e -> {
+            selectedRestaurant = "교직원식당";
+            menuLabel.setText(selectedRestaurant);
+
+        });
+
+        businessBuilding.addActionListener(e -> {
+            selectedRestaurant = "비즈니스대학";
+            menuLabel.setText(selectedRestaurant);
+
+        });
+
+        dormCafeteria.addActionListener(e -> {
+            selectedRestaurant = "기숙사식당";
+            menuLabel.setText(selectedRestaurant);
+
+        });
+
+
+
         frame.setVisible(true);
     }
+
+
 
     public static void main(String[] args) {
         new Main();
