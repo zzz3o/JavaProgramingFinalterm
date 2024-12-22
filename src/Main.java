@@ -37,6 +37,16 @@ public class Main {
         inputPanel.add(quantityField);
         frame.add(inputPanel);
 
+        //결제
+        JPanel amountPanel = new JPanel(new GridLayout(1, 2));
+        amountPanel.add(new JLabel("Amount:", SwingConstants.CENTER));
+        amountLabel = new JLabel("0", SwingConstants.CENTER);
+        amountPanel.add(amountLabel);
+        frame.add(amountPanel);
+
+        JButton paymentButton = new JButton("Payment");
+        frame.add(paymentButton);
+
         frame.setVisible(true);
     }
 
