@@ -14,4 +14,5 @@ public class ColorPalette {
     public static final Color Payment_COLOR = new Color(254, 250, 224); // payment,quantity 배경색 .. 타이틀,식당 텍스트 색상
     public static final Color AmountChecked_COLOR = new Color(163, 83, 12);
     public static final Color PaymentChecked_COLOR = new Color(214, 210, 189);
+    public static final Color InputPanel_COLOR = new Color(221, 161, 94);
 }

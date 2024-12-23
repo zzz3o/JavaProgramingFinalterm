@@ -19,7 +19,7 @@ public class PaymentCalculator {
      * @return 계산된 결제 금액
      */
     public static int calculateAmount(String restaurant, int quantity) {
-        // 교직원식당은 6000원, 그외 식당들은 4500원으로 설정
+        // 어떤 식당을 선택하냐에 따라 가격 설정
         int price = restaurant.equals("교직원식당") ? Constants.EMPLOYEE_PRICE : Constants.OTHER_PRICE;
         return quantity * price;
     }

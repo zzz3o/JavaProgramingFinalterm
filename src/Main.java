@@ -12,6 +12,7 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(320, 568);
         frame.setLayout(new GridLayout(6, 1));
+        frame.getContentPane().setBackground(ColorPalette.BACKGROUND_COLOR);
 
         // 타이틀 패널
         JPanel titlePanel = createTitlePanel();
@@ -22,8 +23,8 @@ public class Main {
         frame.add(inputPanel);
 
         // 금액 패널
-        JPanel amountPanel = createAmountPanel();
-        frame.add(amountPanel);
+//        JPanel amountPanel = createAmountPanel();
+//        frame.add(amountPanel);
 
         // 식당 패널
         restaurantPanel = new RestaurantPanel();
@@ -52,10 +53,14 @@ public class Main {
      */
     private JPanel createTitlePanel() {
         JPanel titlePanel = new JPanel(new GridLayout(1, 2));
+        titlePanel.setBackground(ColorPalette.BACKGROUND_COLOR);
         JLabel titleLabel = new JLabel("<html>CJU<br />Meal<br />Tickets</html>", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        JLabel subtitleLabel = new JLabel("<html><div style='text-align:right;'>Nutritious<br/>Cheap<br/>Near</div></html>");
+        titleLabel.setForeground(ColorPalette.Payment_COLOR);
+        JLabel subtitleLabel = new JLabel("<html><div style='text-align:right;'>Nutritious<br/>Cheap<br/>Near</div></html>", JLabel.CENTER);
         subtitleLabel.setFont(new Font("Arial", Font.ITALIC, 14));
+        subtitleLabel.setForeground(ColorPalette.Payment_COLOR);
+
         titlePanel.add(titleLabel);
         titlePanel.add(subtitleLabel);
         return titlePanel;
@@ -77,38 +82,49 @@ public class Main {
      * </ul>
      */
     private JPanel createInputPanel() {
-        JPanel inputPanel = new JPanel(new GridLayout(2, 2));
-        inputPanel.add(new JLabel("Menu:", SwingConstants.CENTER));
-        JLabel menuLabel = new JLabel("-", SwingConstants.CENTER);
-        inputPanel.add(menuLabel);
-        inputPanel.add(new JLabel("Quantity:", SwingConstants.CENTER));
-        quantityField = new JTextField();
-        inputPanel.add(quantityField);
+        // 최상위 패널 생성
+        JPanel inputPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10)); // 외부 여백 설정
+
+        // Menu 패널 생성
+        JPanel menuPanel = new JPanel(new BorderLayout());
+        JLabel menuLabel = new JLabel("MENU", SwingConstants.CENTER);
+        menuLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        menuLabel.setForeground(ColorPalette.Payment_COLOR);
+        menuPanel.setBackground(new Color(85, 107, 47)); // 배경색 설정
+        menuPanel.add(menuLabel, BorderLayout.CENTER);
+
+        // Quantity와 Amount 패널 생성
+        JPanel quantityAmountPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+        quantityAmountPanel.setBackground(ColorPalette.InputPanel_COLOR);
+
+        // Quantity 패널
+        JPanel quantityPanel = new JPanel(new BorderLayout());
+        JLabel quantityLabel = new JLabel("Quantity", SwingConstants.CENTER);
+        quantityLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        quantityLabel.setForeground(ColorPalette.Button_COLOR);
+        quantityPanel.setBackground(new Color(245, 245, 220)); // 배경색 설정
+        quantityPanel.add(quantityLabel, BorderLayout.CENTER);
+
+        // Amount 패널
+        JPanel amountPanel = new JPanel(new BorderLayout());
+        JLabel amountLabel = new JLabel("Amount", SwingConstants.CENTER);
+        amountLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        amountLabel.setForeground(ColorPalette.Payment_COLOR);
+        amountPanel.setBackground(ColorPalette.ButtonChecked_COLOR); // 배경색 설정
+        amountPanel.add(amountLabel, BorderLayout.CENTER);
+
+        quantityAmountPanel.add(quantityPanel);
+        quantityAmountPanel.add(amountPanel);
+
+        inputPanel.add(menuPanel);
+        inputPanel.add(quantityAmountPanel);
+
+        inputPanel.setBackground(ColorPalette.InputPanel_COLOR);
+
         return inputPanel;
     }
 
-    /**
-     * Amount 정보를 표시하는 패널을 생성합니다.
-     *
-     * @author Seo  Woojin (zzzeow3@gmail.com)
-     *
-     * @created 2024-12-22
-     * @lastModified 2024-12-26
-     *
-     * @return 생성된 패널(JPanel) 객체를 반환합니다.
-     *
-     * @changelog
-     * <ul>
-     *   <li>2024-12-22: 최초 생성 (Seo  Woojin)</li>
-     * </ul>
-     */
-    private JPanel createAmountPanel() {
-        JPanel amountPanel = new JPanel(new GridLayout(1, 2));
-        amountPanel.add(new JLabel("Amount:", SwingConstants.CENTER));
-        amountLabel = new JLabel("0", SwingConstants.CENTER);
-        amountPanel.add(amountLabel);
-        return amountPanel;
-    }
 
     /**
      * 결제 처리 로직을 수행합니다.
