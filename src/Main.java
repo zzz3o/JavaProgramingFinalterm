@@ -11,31 +11,24 @@ public class Main {
         frame = new JFrame("CJU Meal Tickets");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(320, 568);
-        frame.setLayout(new GridLayout(6, 1));
+        frame.setLayout(new BorderLayout(5, 5));
         frame.getContentPane().setBackground(ColorPalette.BACKGROUND_COLOR);
 
         // 타이틀 패널
         JPanel titlePanel = createTitlePanel();
-        frame.add(titlePanel);
+        frame.add(titlePanel, BorderLayout.NORTH);
 
         // 입력 패널
         JPanel inputPanel = createInputPanel();
-        frame.add(inputPanel);
+        frame.add(inputPanel, BorderLayout.CENTER);
 
-        // 금액 패널
-//        JPanel amountPanel = createAmountPanel();
-//        frame.add(amountPanel);
+        frame.setVisible(true);
 
         // 식당 패널
         restaurantPanel = new RestaurantPanel();
-        frame.add(restaurantPanel.getPanel());
+        frame.add(restaurantPanel.getPanel(), BorderLayout.SOUTH);
 
-        // 결제 버튼
-        JButton paymentButton = new JButton("Payment");
-        paymentButton.addActionListener(e -> handlePayment());
-        frame.add(paymentButton);
 
-        frame.setVisible(true);
     }
 
     /**
@@ -55,7 +48,7 @@ public class Main {
         JPanel titlePanel = new JPanel(new GridLayout(1, 2));
         titlePanel.setBackground(ColorPalette.BACKGROUND_COLOR);
         JLabel titleLabel = new JLabel("<html>CJU<br />Meal<br />Tickets</html>", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setForeground(ColorPalette.Payment_COLOR);
         JLabel subtitleLabel = new JLabel("<html><div style='text-align:right;'>Nutritious<br/>Cheap<br/>Near</div></html>", JLabel.CENTER);
         subtitleLabel.setFont(new Font("Arial", Font.ITALIC, 14));
@@ -79,11 +72,12 @@ public class Main {
      * @changelog
      * <ul>
      *   <li>2024-12-22: 최초 생성 (Seo  Woojin)</li>
+     *   <li>2024-12-23: AmountPanel과 합쳐짐 (Seo  Woojin)</li>
      * </ul>
      */
     private JPanel createInputPanel() {
         // 최상위 패널 생성
-        JPanel inputPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+        JPanel inputPanel = new JPanel(new BorderLayout(10, 10));
         inputPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10)); // 외부 여백 설정
 
         // Menu 패널 생성
@@ -92,7 +86,7 @@ public class Main {
         menuLabel.setFont(new Font("Arial", Font.BOLD, 16));
         menuLabel.setForeground(ColorPalette.Payment_COLOR);
         menuPanel.setBackground(new Color(85, 107, 47)); // 배경색 설정
-        menuPanel.add(menuLabel, BorderLayout.CENTER);
+        menuPanel.add(menuLabel);
 
         // Quantity와 Amount 패널 생성
         JPanel quantityAmountPanel = new JPanel(new GridLayout(2, 1, 10, 10));
@@ -100,11 +94,11 @@ public class Main {
 
         // Quantity 패널
         JPanel quantityPanel = new JPanel(new BorderLayout());
-        JLabel quantityLabel = new JLabel("Quantity", SwingConstants.CENTER);
-        quantityLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        quantityLabel.setForeground(ColorPalette.Button_COLOR);
-        quantityPanel.setBackground(new Color(245, 245, 220)); // 배경색 설정
-        quantityPanel.add(quantityLabel, BorderLayout.CENTER);
+        JTextField quantityTextField = new JTextField("Quantity");
+        quantityTextField.setFont(new Font("Arial", Font.PLAIN, 16));
+        quantityTextField.setForeground(ColorPalette.Button_COLOR);
+        quantityPanel.setBackground(ColorPalette.Payment_COLOR); // 배경색 설정
+        quantityPanel.add(quantityTextField, BorderLayout.CENTER);
 
         // Amount 패널
         JPanel amountPanel = new JPanel(new BorderLayout());
@@ -114,11 +108,21 @@ public class Main {
         amountPanel.setBackground(ColorPalette.ButtonChecked_COLOR); // 배경색 설정
         amountPanel.add(amountLabel, BorderLayout.CENTER);
 
+        //Menu와 Quantity, Amount 패널 생성
+        JPanel InfoPanel = new JPanel(new GridLayout(1,2,10,10));
+        InfoPanel.setBackground(ColorPalette.InputPanel_COLOR);
+
+        // 결제 버튼
+        JButton paymentButton = new JButton("Payment");
+        paymentButton.addActionListener(e -> handlePayment());
+        inputPanel.add(paymentButton,BorderLayout.SOUTH);
+
         quantityAmountPanel.add(quantityPanel);
         quantityAmountPanel.add(amountPanel);
 
-        inputPanel.add(menuPanel);
-        inputPanel.add(quantityAmountPanel);
+        InfoPanel.add(menuPanel);
+        InfoPanel.add(quantityAmountPanel);
+        inputPanel.add(InfoPanel);
 
         inputPanel.setBackground(ColorPalette.InputPanel_COLOR);
 

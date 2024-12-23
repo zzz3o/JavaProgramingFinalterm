@@ -14,7 +14,7 @@
  */
 public class PaymentCalculator {
     /**
-     * @param restaurant 결제할 레스토랑의 이름 (예: "교직원식당", "학생식당")
+     * @param restaurant 결제할 레스토랑의 이름
      * @param quantity 결제할 항목의 수량
      * @return 계산된 결제 금액
      */

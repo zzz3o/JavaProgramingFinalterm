@@ -72,7 +72,7 @@ public class RestaurantPanel {
      */
     private void updateButtonColors(JButton selectedButton) {
         for (JButton button : buttonMap.keySet()) {
-            button.setBackground(button == selectedButton ? Color.ORANGE : null);
+            button.setBackground(button == selectedButton ? ColorPalette.ButtonChecked_COLOR : null);
         }
     }
 
