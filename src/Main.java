@@ -37,13 +37,15 @@ public class Main {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        gbc.insets = new Insets(0, 10, 0, 10); // 여백 추가
+        gbc.insets = new Insets(15, 10, 15, 10); // 여백 추가
         frame.add(titlePanel, gbc);
 
         // 입력 패널 추가
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 10, 0, 10);
         frame.add(inputPanel, gbc);
 
         // 결제 버튼 추가
@@ -51,13 +53,14 @@ public class Main {
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 20, 10, 20);
+        gbc.insets = new Insets(15, 10, 15, 10);
         frame.add(paymentButton, gbc);
 
         // 식당 패널 추가
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
+        gbc.insets = new Insets(0, 10, 0, 10);
         frame.add(restaurantPanel.getPanel(), gbc);
 
         frame.setVisible(true);
@@ -100,12 +103,16 @@ public class Main {
      * @created 2024-12-22
      * @lastModified 2024-12-26
      *
+     * @see @see <a href="https://itdeveloper.tistory.com/20">GridBagLayout 사용 참고</a>
      * @return 입력 패널을 반환합니다.
      *
      * @changelog
      * <ul>
      *   <li>2024-12-22: 최초 생성 (Seo  Woojin)</li>
      *   <li>2024-12-23: AmountPanel과 합쳐짐 (Seo  Woojin)</li>
+     *   <li>2024-12-23: GridBagLayout으로 변경 (Seo  Woojin)</li>
+     *   <li>2024-12-24: 구조 수정 (Seo  Woojin)</li>
+     *
      * </ul>
      */
     private JPanel createInputPanel() {
@@ -147,15 +154,18 @@ public class Main {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridheight = 2;
+        gbc.weighty = 0.3;
         inputPanel.add(menuPanel, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
+        gbc.weighty = 0.1;
         inputPanel.add(quantityPanel, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 3;
+        gbc.weighty = 0.2;
         inputPanel.add(amountPanel, gbc);
 
         return inputPanel;
