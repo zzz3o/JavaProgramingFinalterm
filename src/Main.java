@@ -21,6 +21,8 @@ public class Main {
 
         // 결제 버튼
         JButton paymentButton = new JButton("Payment");
+        paymentButton.setBackground(ColorPalette.Payment_COLOR);
+        paymentButton.setForeground(ColorPalette.BACKGROUND_COLOR);
         paymentButton.addActionListener(e -> handlePayment());
 
         // 식당 패널
@@ -33,8 +35,8 @@ public class Main {
         // 타이틀 패널 추가
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.insets = new Insets(10, 10, 10, 10); // 여백 추가
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(0, 10, 10, 10); // 여백 추가
         frame.add(titlePanel, gbc);
 
         // 입력 패널 추가
@@ -47,6 +49,7 @@ public class Main {
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
         frame.add(paymentButton, gbc);
 
@@ -74,13 +77,13 @@ public class Main {
      */
     private JPanel createTitlePanel() {
         JPanel titlePanel = new JPanel(new GridLayout(1, 2));
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20)); // 외부 여백 설정
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 20)); // 외부 여백 설정
         titlePanel.setBackground(ColorPalette.BACKGROUND_COLOR);
         JLabel titleLabel = new JLabel("<html>CJU<br />Meal<br />Tickets</html>", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setForeground(ColorPalette.Payment_COLOR);
         JLabel subtitleLabel = new JLabel("<html><div style='text-align:right;'>Nutritious<br/>Cheap<br/>Near</div></html>", JLabel.CENTER);
-        subtitleLabel.setFont(new Font("Arial", Font.ITALIC, 14));
+        subtitleLabel.setFont(new Font("Arial", Font.ITALIC, 20));
         subtitleLabel.setForeground(ColorPalette.Payment_COLOR);
 
         titlePanel.add(titleLabel);
@@ -102,6 +105,9 @@ public class Main {
      * <ul>
      *   <li>2024-12-22: 최초 생성 (Seo  Woojin)</li>
      *   <li>2024-12-23: AmountPanel과 합쳐짐 (Seo  Woojin)</li>
+     *   <li>2024-12-23: GridBagLayout으로 변경 (Seo  Woojin)</li>
+     *   <li>2024-12-23: 각 패널 위치 수정 (Seo  Woojin)</li>
+     *   <li>2024-12-24: 패널의 텍스트 위치 변경 (Seo  Woojin)</li>
      * </ul>
      */
     private JPanel createInputPanel() {
@@ -109,20 +115,22 @@ public class Main {
         GridBagConstraints gbc = new GridBagConstraints();
         inputPanel.setPreferredSize(new Dimension(260, 161));
         inputPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // 외부 여백 설정
+        inputPanel.setBackground(ColorPalette.InputPanel_COLOR);
 
         // Menu 패널 생성
         JPanel menuPanel = new JPanel(new BorderLayout());
         JLabel menuLabel = new JLabel("MENU", SwingConstants.CENTER);
         menuLabel.setFont(new Font("Arial", Font.BOLD, 16));
         menuLabel.setForeground(ColorPalette.Payment_COLOR);
-        menuPanel.setBackground(new Color(85, 107, 47)); // 배경색 설정
-        menuPanel.add(menuLabel);
+        menuPanel.setBackground(ColorPalette.Button_COLOR); // 배경색 설정
+        menuPanel.add(menuLabel, BorderLayout.NORTH);
 
         // Quantity 패널
         JPanel quantityPanel = new JPanel(new BorderLayout());
         quantityField = new JTextField("Quantity");
         quantityField.setFont(new Font("Arial", Font.PLAIN, 16));
         quantityField.setForeground(ColorPalette.Button_COLOR);
+        quantityField.setHorizontalAlignment(JTextField.CENTER);
         quantityPanel.setBackground(ColorPalette.Payment_COLOR); // 배경색 설정
         quantityPanel.add(quantityField);
 
@@ -142,7 +150,8 @@ public class Main {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        gbc.gridheight = 2; // Menu 패널이 Quantity와 Amount를 감싸도록 설정
+        gbc.gridheight = 2;
+        gbc.weightx = 0.4;
         inputPanel.add(menuPanel, gbc);
 
         // Quantity 패널 배치
@@ -150,11 +159,14 @@ public class Main {
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
+        gbc.weightx = 0.3;
+        gbc.weighty = 0.1;
         inputPanel.add(quantityPanel, gbc);
 
         // Amount 패널 배치
         gbc.gridx = 2;
         gbc.gridy = 1;
+        gbc.weighty = 0.2;
         inputPanel.add(amountPanel, gbc);
 
         return inputPanel;
