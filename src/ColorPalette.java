@@ -7,7 +7,6 @@ import java.awt.Color;
  */
 public class ColorPalette {
 
-    // 기본 색상 정의
     public static final Color BACKGROUND_COLOR = new Color(0x283618); // 프레임 배경,payment 버튼 텍스트 색상
     public static final Color ButtonChecked_COLOR = new Color(188, 108, 37); // Amount 배경, 식당 버튼 선택시 색상
     public static final Color Button_COLOR = new Color(96, 108, 56); // 메뉴 패널, 식당버튼 배경색

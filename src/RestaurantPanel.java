@@ -53,10 +53,13 @@ public class RestaurantPanel {
      * @changelog
      * <ul>
      *   <li>2024-12-22: 최초 생성 (Seo  Woojin)</li>
+     *   <li>2024-12-24: 지정 색상 변경 (Seo  Woojin)</li>
      * </ul>
      */
     private JButton createButton(String restaurantName) {
         JButton button = new JButton(restaurantName);
+        button.setBackground(ColorPalette.Button_COLOR);
+        button.setForeground(ColorPalette.Payment_COLOR);
         button.addActionListener(e -> {
             selectedRestaurant = restaurantName;
             updateButtonColors(button);
@@ -72,7 +75,7 @@ public class RestaurantPanel {
      */
     private void updateButtonColors(JButton selectedButton) {
         for (JButton button : buttonMap.keySet()) {
-            button.setBackground(button == selectedButton ? ColorPalette.ButtonChecked_COLOR : null);
+            button.setBackground(button == selectedButton ? ColorPalette.ButtonChecked_COLOR : ColorPalette.Button_COLOR);
         }
     }
 
