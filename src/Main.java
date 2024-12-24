@@ -23,6 +23,7 @@ public class Main {
         JButton paymentButton = new JButton("Payment");
         paymentButton.setBackground(ColorPalette.Payment_COLOR);
         paymentButton.setForeground(ColorPalette.BACKGROUND_COLOR);
+        paymentButton.setPreferredSize(new Dimension(260, 56));
         paymentButton.addActionListener(e -> handlePayment());
 
         // 식당 패널
@@ -36,7 +37,7 @@ public class Main {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 10, 10, 10); // 여백 추가
+        gbc.insets = new Insets(0, 10, 10, 10);
         frame.add(titlePanel, gbc);
 
         // 입력 패널 추가
@@ -73,11 +74,14 @@ public class Main {
      * @changelog
      * <ul>
      *   <li>2024-12-22: 최초 생성 (Seo  Woojin)</li>
+     *   <li>2024-12-22: 패널 크기 설정 (Seo  Woojin)</li>
+     *
      * </ul>
      */
     private JPanel createTitlePanel() {
         JPanel titlePanel = new JPanel(new GridLayout(1, 2));
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 20)); // 외부 여백 설정
+        titlePanel.setPreferredSize(new Dimension(250, 116));
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 20));
         titlePanel.setBackground(ColorPalette.BACKGROUND_COLOR);
         JLabel titleLabel = new JLabel("<html>CJU<br />Meal<br />Tickets</html>", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
@@ -113,8 +117,8 @@ public class Main {
     private JPanel createInputPanel() {
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        inputPanel.setPreferredSize(new Dimension(260, 161));
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // 외부 여백 설정
+        inputPanel.setPreferredSize(new Dimension(280, 200));
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         inputPanel.setBackground(ColorPalette.InputPanel_COLOR);
 
         // Menu 패널 생성
@@ -122,7 +126,7 @@ public class Main {
         JLabel menuLabel = new JLabel("MENU", SwingConstants.CENTER);
         menuLabel.setFont(new Font("Arial", Font.BOLD, 16));
         menuLabel.setForeground(ColorPalette.Payment_COLOR);
-        menuPanel.setBackground(ColorPalette.Button_COLOR); // 배경색 설정
+        menuPanel.setBackground(ColorPalette.Button_COLOR);
         menuPanel.add(menuLabel, BorderLayout.NORTH);
 
         // Quantity 패널
@@ -132,6 +136,7 @@ public class Main {
         quantityField.setForeground(ColorPalette.Button_COLOR);
         quantityField.setHorizontalAlignment(JTextField.CENTER);
         quantityPanel.setBackground(ColorPalette.Payment_COLOR); // 배경색 설정
+        quantityPanel.setPreferredSize(new Dimension(100, 60));
         quantityPanel.add(quantityField);
 
         // Amount 패널
@@ -140,6 +145,7 @@ public class Main {
         amountLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         amountLabel.setForeground(ColorPalette.Payment_COLOR);
         amountPanel.setBackground(ColorPalette.ButtonChecked_COLOR); // 배경색 설정
+        amountPanel.setPreferredSize(new Dimension(100, 60)); // 패널 크기 확장
         amountPanel.add(amountLabel);
 
         // GridBagConstraints 설정
@@ -150,23 +156,22 @@ public class Main {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        gbc.gridheight = 2;
-        gbc.weightx = 0.4;
+        gbc.gridheight = 6;
+        gbc.weightx = 0.3;
         inputPanel.add(menuPanel, gbc);
 
         // Quantity 패널 배치
         gbc.gridx = 2;
         gbc.gridy = 0;
-        gbc.gridwidth = 1;
         gbc.gridheight = 1;
-        gbc.weightx = 0.3;
-        gbc.weighty = 0.1;
+        gbc.weightx = 0.1;
+        gbc.weighty = 0.2;
         inputPanel.add(quantityPanel, gbc);
 
         // Amount 패널 배치
         gbc.gridx = 2;
         gbc.gridy = 1;
-        gbc.weighty = 0.2;
+        gbc.weighty = 0.4;
         inputPanel.add(amountPanel, gbc);
 
         return inputPanel;
@@ -183,11 +188,12 @@ public class Main {
      * @author Seo  Woojin (zzzeow3@gmail.com)
      *
      * @created 2024-12-22
-     * @lastModified 2024-12-26
+     * @lastModified 2024-12-23
      *
      * @changelog
      * <ul>
      *   <li>2024-12-22: 최초 생성 (Seo  Woojin)</li>
+     *   li>2024-12-22: amountLabel 업데이트 (Seo  Woojin)</li>
      * </ul>
      */
     private void handlePayment() {
@@ -195,7 +201,7 @@ public class Main {
             String restaurant = restaurantPanel.getSelectedRestaurant();
             int quantity = Integer.parseInt(quantityField.getText());
             int amount = PaymentCalculator.calculateAmount(restaurant, quantity);
-            amountLabel.setText(String.valueOf(amount)); // amountLabel 업데이트
+            amountLabel.setText(String.valueOf(amount));
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(frame, "Please enter a valid quantity.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
