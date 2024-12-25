@@ -62,6 +62,7 @@ public class RestaurantPanel {
         JButton button = new JButton(restaurantName);
         button.setBackground(ColorPalette.Button_COLOR);
         button.setPreferredSize(new Dimension(100, 50));
+        button.setFont(new Font("Inter", Font.BOLD, 14));
         button.setForeground(ColorPalette.Payment_COLOR);
         button.addActionListener(e -> {
             selectedRestaurant = restaurantName;

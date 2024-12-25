@@ -23,7 +23,7 @@ public class Main {
         JButton paymentButton = new JButton("Payment");
         paymentButton.setBackground(ColorPalette.Payment_COLOR);
         paymentButton.setForeground(ColorPalette.BACKGROUND_COLOR);
-        paymentButton.setFont(new Font("Arial", Font.BOLD, 20));
+        paymentButton.setFont(new Font("Inter", Font.BOLD, 20));
         paymentButton.setPreferredSize(new Dimension(260, 56));
         paymentButton.addActionListener(e -> handlePayment());
 
@@ -86,10 +86,10 @@ public class Main {
         titlePanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 20));
         titlePanel.setBackground(ColorPalette.BACKGROUND_COLOR);
         JLabel titleLabel = new JLabel("<html>CJU<br />Meal<br />Tickets</html>", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        titleLabel.setFont(new Font("Inter", Font.BOLD, 30));
         titleLabel.setForeground(ColorPalette.Payment_COLOR);
         JLabel subtitleLabel = new JLabel("<html><div style='text-align:right;'>Nutritious<br/>Cheap<br/>Near</div></html>", JLabel.CENTER);
-        subtitleLabel.setFont(new Font("Arial", Font.ITALIC, 20));
+        subtitleLabel.setFont(new Font("Inter", Font.ITALIC, 20));
         subtitleLabel.setForeground(ColorPalette.Payment_COLOR);
 
         titlePanel.add(titleLabel);
@@ -126,7 +126,7 @@ public class Main {
         // Menu 패널 생성
         JPanel menuPanel = new JPanel(new BorderLayout());
         JLabel menuLabel = new JLabel("MENU", SwingConstants.CENTER);
-        menuLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        menuLabel.setFont(new Font("Inter", Font.BOLD, 16));
         menuLabel.setForeground(ColorPalette.Payment_COLOR);
         menuPanel.setBackground(ColorPalette.Button_COLOR);
         menuPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -135,7 +135,7 @@ public class Main {
         // Quantity 패널
         JPanel quantityPanel = new JPanel(new BorderLayout());
         quantityField = new JTextField("Quantity");
-        quantityField.setFont(new Font("Arial", Font.PLAIN, 16));
+        quantityField.setFont(new Font("Inter", Font.PLAIN, 16));
         quantityField.setForeground(ColorPalette.Button_COLOR);
         quantityField.setHorizontalAlignment(JTextField.CENTER);
         quantityPanel.setBackground(ColorPalette.Payment_COLOR); // 배경색 설정
@@ -145,7 +145,7 @@ public class Main {
         // Amount 패널
         JPanel amountPanel = new JPanel(new BorderLayout());
         amountLabel = new JLabel("Amount", SwingConstants.CENTER);
-        amountLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        amountLabel.setFont(new Font("Inter", Font.PLAIN, 16));
         amountLabel.setForeground(ColorPalette.Payment_COLOR);
         amountPanel.setBackground(ColorPalette.ButtonChecked_COLOR); // 배경색 설정
         amountPanel.setPreferredSize(new Dimension(100, 60)); // 패널 크기 확장
