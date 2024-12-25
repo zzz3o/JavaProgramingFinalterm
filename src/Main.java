@@ -23,6 +23,7 @@ public class Main {
         JButton paymentButton = new JButton("Payment");
         paymentButton.setBackground(ColorPalette.Payment_COLOR);
         paymentButton.setForeground(ColorPalette.BACKGROUND_COLOR);
+        paymentButton.setFont(new Font("Arial", Font.BOLD, 20));
         paymentButton.setPreferredSize(new Dimension(260, 56));
         paymentButton.addActionListener(e -> handlePayment());
 
@@ -37,7 +38,8 @@ public class Main {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 10, 10, 10);
+        gbc.fill = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(0, 20, 10, 20);
         frame.add(titlePanel, gbc);
 
         // 입력 패널 추가
@@ -51,7 +53,7 @@ public class Main {
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(10, 20, 10, 20);
         frame.add(paymentButton, gbc);
 
         // 식당 패널 추가
@@ -117,8 +119,8 @@ public class Main {
     private JPanel createInputPanel() {
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        inputPanel.setPreferredSize(new Dimension(280, 200));
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        inputPanel.setPreferredSize(new Dimension(260, 160));
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         inputPanel.setBackground(ColorPalette.InputPanel_COLOR);
 
         // Menu 패널 생성
@@ -127,6 +129,7 @@ public class Main {
         menuLabel.setFont(new Font("Arial", Font.BOLD, 16));
         menuLabel.setForeground(ColorPalette.Payment_COLOR);
         menuPanel.setBackground(ColorPalette.Button_COLOR);
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         menuPanel.add(menuLabel, BorderLayout.NORTH);
 
         // Quantity 패널
@@ -157,7 +160,7 @@ public class Main {
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         gbc.gridheight = 6;
-        gbc.weightx = 0.3;
+        gbc.weightx = 1.0;
         inputPanel.add(menuPanel, gbc);
 
         // Quantity 패널 배치
@@ -165,13 +168,13 @@ public class Main {
         gbc.gridy = 0;
         gbc.gridheight = 1;
         gbc.weightx = 0.1;
-        gbc.weighty = 0.2;
+        gbc.weighty = 0.1;
         inputPanel.add(quantityPanel, gbc);
 
         // Amount 패널 배치
         gbc.gridx = 2;
         gbc.gridy = 1;
-        gbc.weighty = 0.4;
+        gbc.weighty = 0.3;
         inputPanel.add(amountPanel, gbc);
 
         return inputPanel;
