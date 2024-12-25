@@ -42,12 +42,6 @@ public class Main {
         gbc.insets = new Insets(0, 20, 10, 20);
         frame.add(titlePanel, gbc);
 
-        // 입력 패널 추가
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 2;
-        frame.add(inputPanel, gbc);
-
         // 결제 버튼 추가
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -114,6 +108,7 @@ public class Main {
      *   <li>2024-12-23: GridBagLayout으로 변경 (Seo  Woojin)</li>
      *   <li>2024-12-23: 각 패널 위치 수정 (Seo  Woojin)</li>
      *   <li>2024-12-24: 패널의 텍스트 위치 변경 (Seo  Woojin)</li>
+     *   <li>2024-12-26: 전체 폰트 변경 (Seo  Woojin)</li>
      * </ul>
      */
     private JPanel createInputPanel() {
@@ -174,7 +169,7 @@ public class Main {
         // Amount 패널 배치
         gbc.gridx = 2;
         gbc.gridy = 1;
-        gbc.weighty = 0.3;
+        gbc.weighty = 0.2;
         inputPanel.add(amountPanel, gbc);
 
         return inputPanel;
@@ -197,6 +192,8 @@ public class Main {
      * <ul>
      *   <li>2024-12-22: 최초 생성 (Seo  Woojin)</li>
      *   li>2024-12-22: amountLabel 업데이트 (Seo  Woojin)</li>
+     *   li>2024-12-22: 결제 메세지 업데이트 (Seo  Woojin)</li>
+     *   
      * </ul>
      */
     private void handlePayment() {
@@ -204,13 +201,22 @@ public class Main {
             String restaurant = restaurantPanel.getSelectedRestaurant();
             int quantity = Integer.parseInt(quantityField.getText());
             int amount = PaymentCalculator.calculateAmount(restaurant, quantity);
-            amountLabel.setText(String.valueOf(amount));
+
+            // 구매 내역에 추가
+            restaurantPanel.addPurchaseHistory(restaurant, amount);
+
+            // 총 금액과 선택된 레스토랑을 메시지 창에 표시
+            JOptionPane.showMessageDialog(frame,
+                    String.format("총 금액: %,d원\n식당: %s", amount, restaurant),
+                    "결제 완료",
+                    JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(frame, "Please enter a valid quantity.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(frame, "Please select a restaurant.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     public static void main(String[] args) {
         new Main();
