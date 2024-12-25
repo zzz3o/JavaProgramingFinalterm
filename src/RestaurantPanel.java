@@ -15,6 +15,7 @@ import java.util.Map;
  * @changelog
  * <ul>
  *   <li>2024-12-22: 최초 생성 (Seo  Woojin)</li>
+ *   <li>2024-12-25: 버튼 여백 추가 (Seo  Woojin)</li>
  * </ul>
  */
 public class RestaurantPanel {
@@ -22,9 +23,8 @@ public class RestaurantPanel {
     private String selectedRestaurant;
     private Map<JButton, String> buttonMap;
 
-
     public RestaurantPanel() {
-        panel = new JPanel(new GridLayout(2, 2, 10, 10)); // 버튼 사이에 여백 추가
+        panel = new JPanel(new GridLayout(2, 2, 10, 10));
         panel.setBackground(ColorPalette.BACKGROUND_COLOR);
         buttonMap = new HashMap<>();
 
@@ -55,29 +55,14 @@ public class RestaurantPanel {
      * <ul>
      *   <li>2024-12-22: 최초 생성 (Seo  Woojin)</li>
      *   <li>2024-12-24: 지정 색상 변경 (Seo  Woojin)</li>
-     *   <li>2024-12-25: 버튼 크기 설정 (Seo  Woojin)</li>
+     *   <li>2024-12-24: 버튼 크기 설정 (Seo  Woojin)</li>
      * </ul>
      */
     private JButton createButton(String restaurantName) {
         JButton button = new JButton(restaurantName);
-        button.setPreferredSize(new Dimension(100, 50));
         button.setBackground(ColorPalette.Button_COLOR);
+        button.setPreferredSize(new Dimension(100, 50));
         button.setForeground(ColorPalette.Payment_COLOR);
-
-        // 버튼의 "Pressed" 상태 색상 설정
-        button.getModel().addChangeListener(e -> {
-            ButtonModel model = button.getModel();
-            if (model.isPressed()) {
-                button.setBackground(new Color(255, 153, 153)); // Pressed 상태의 배경색 설정
-                button.setForeground(Color.WHITE); // Pressed 상태의 텍스트 색상
-            } else if (model.isRollover()) {
-                button.setBackground(ColorPalette.ButtonChecked_COLOR); // Hover 상태의 배경색
-            } else {
-                button.setBackground(ColorPalette.Button_COLOR); // 기본 상태의 배경색
-                button.setForeground(ColorPalette.Payment_COLOR); // 기본 텍스트 색상
-            }
-        });
-
         button.addActionListener(e -> {
             selectedRestaurant = restaurantName;
             updateButtonColors(button);
