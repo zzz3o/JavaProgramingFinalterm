@@ -10,7 +10,7 @@ public class Main {
     public Main() {
         frame = new JFrame("CJU Meal Tickets");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(320, 568);
+        frame.setSize(340, 568);
         frame.getContentPane().setBackground(ColorPalette.BACKGROUND_COLOR);
 
         JPanel titlePanel = createTitlePanel();
@@ -18,20 +18,37 @@ public class Main {
         JPanel inputPanel = createInputPanel();
 
         // 결제 버튼
-        JButton paymentButton = new JButton("Payment");
+        JButton paymentButton = new JButton("Payment") {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(getBackground());
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+                super.paintComponent(g);
+                g2.dispose();
+            }
+
+            @Override
+            protected void paintBorder(Graphics g) {
+                // 테두리 제거
+            }
+        };
         paymentButton.setBackground(ColorPalette.Payment_COLOR);
         paymentButton.setForeground(ColorPalette.BACKGROUND_COLOR);
         paymentButton.setFont(new Font("Inter", Font.BOLD, 20));
         paymentButton.setPreferredSize(new Dimension(260, 56));
+        paymentButton.setFocusPainted(false);
+        paymentButton.setContentAreaFilled(false);
+        paymentButton.setOpaque(false);
         paymentButton.addActionListener(e -> handlePayment());
 
         restaurantPanel = new RestaurantPanel();
 
-        // GridBagLayout을 사용하여 레이아웃 설정
         frame.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        // 타이틀 패널 추가
+        // 타이틀 패널
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -39,14 +56,14 @@ public class Main {
         gbc.insets = new Insets(0, 20, 10, 20);
         frame.add(titlePanel, gbc);
 
-        // 입력 패널 추가
+        // 입력 패널
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
         frame.add(inputPanel, gbc);
 
 
-        // 결제 버튼 추가
+        // 결제 버튼
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
@@ -54,7 +71,7 @@ public class Main {
         gbc.insets = new Insets(10, 20, 10, 20);
         frame.add(paymentButton, gbc);
 
-        // 식당 패널 추가
+        // 식당 패널
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
@@ -79,21 +96,26 @@ public class Main {
      * </ul>
      */
     private JPanel createTitlePanel() {
-        JPanel titlePanel = new JPanel(new GridLayout(1, 2));
+        RoundedPanel titlePanel = new RoundedPanel(20); // 코너 반경 설정
         titlePanel.setPreferredSize(new Dimension(250, 116));
         titlePanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 20));
         titlePanel.setBackground(ColorPalette.BACKGROUND_COLOR);
+
         JLabel titleLabel = new JLabel("<html>CJU<br />Meal<br />Tickets</html>", JLabel.CENTER);
-        titleLabel.setFont(new Font("Inter", Font.BOLD, 30));
+        titleLabel.setFont(new Font("Inter", Font.BOLD, 28));
         titleLabel.setForeground(ColorPalette.Payment_COLOR);
+
         JLabel subtitleLabel = new JLabel("<html><div style='text-align:right;'>Nutritious<br/>Cheap<br/>Near</div></html>", JLabel.CENTER);
-        subtitleLabel.setFont(new Font("Inter", Font.ITALIC, 20));
+        subtitleLabel.setFont(new Font("Inter", Font.ITALIC, 18));
         subtitleLabel.setForeground(ColorPalette.Payment_COLOR);
 
+        titlePanel.setLayout(new GridLayout(1, 2));
         titlePanel.add(titleLabel);
         titlePanel.add(subtitleLabel);
+
         return titlePanel;
     }
+
 
     /**
      * 이 메소드는 입력을 받기 위한 패널을 생성합니다.
@@ -118,46 +140,58 @@ public class Main {
      * </ul>
      */
     private JPanel createInputPanel() {
-        JPanel inputPanel = new JPanel(new GridBagLayout());
+        RoundedPanel inputPanel = new RoundedPanel(20); // 코너 반경 설정
         GridBagConstraints gbc = new GridBagConstraints();
         inputPanel.setPreferredSize(new Dimension(260, 160));
         inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         inputPanel.setBackground(ColorPalette.InputPanel_COLOR);
 
-        // Menu 패널 생성
-        JPanel menuPanel = new JPanel(new BorderLayout());
+        // Menu 패널
+        RoundedPanel menuPanel = new RoundedPanel(10);
+        menuPanel.setLayout(new BorderLayout());
+
         JLabel menuLabel = new JLabel("MENU", SwingConstants.CENTER);
         menuLabel.setFont(new Font("Inter", Font.BOLD, 16));
         menuLabel.setForeground(ColorPalette.Payment_COLOR);
-        menuPanel.setBackground(ColorPalette.Button_COLOR);
-        menuPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        menuLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+
+        JLabel menuList = new JLabel("<html><div style='text-align:center;'>오돈불고기<br/>쌀밥/잡곡밥<br/>미역국<br/>고들빼기무침<br/>배추김치</html>", SwingConstants.CENTER);
+        menuList.setFont(new Font("Inter", Font.PLAIN, 12));
+        menuList.setForeground(ColorPalette.Payment_COLOR);
+
         menuPanel.add(menuLabel, BorderLayout.NORTH);
+        menuPanel.add(menuList, BorderLayout.CENTER);
+
+        menuPanel.setBackground(ColorPalette.Button_COLOR);
 
         // Quantity 패널
-        JPanel quantityPanel = new JPanel(new BorderLayout());
+        RoundedPanel quantityPanel = new RoundedPanel(10);
         quantityField = new JTextField("Quantity");
+        quantityField.setBorder(null);
         quantityField.setFont(new Font("Inter", Font.PLAIN, 16));
         quantityField.setForeground(ColorPalette.Button_COLOR);
+        quantityField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         quantityField.setHorizontalAlignment(JTextField.CENTER);
-        quantityPanel.setBackground(ColorPalette.Payment_COLOR); // 배경색 설정
-        quantityPanel.setPreferredSize(new Dimension(100, 60));
+        quantityPanel.setBackground(ColorPalette.Payment_COLOR);
         quantityPanel.add(quantityField);
 
-        // history 패널
-        JPanel historyPanel = new JPanel(new BorderLayout());
+        // History 버튼
+        RoundedPanel historyPanel = new RoundedPanel(10);
         JButton historyButton = new JButton("History");
         historyButton.setFont(new Font("Inter", Font.BOLD, 16));
+        historyButton.setBorder(BorderFactory.createEmptyBorder(15, 10, 10, 10));
         historyButton.setForeground(ColorPalette.Payment_COLOR);
         historyButton.setBackground(ColorPalette.ButtonChecked_COLOR);
-        historyButton.setPreferredSize(new Dimension(100, 60));
         historyButton.addActionListener(e -> showPurchaseHistory());
+        historyPanel.setBackground(ColorPalette.ButtonChecked_COLOR);
         historyPanel.add(historyButton);
 
-        // GridBagConstraints 설정
+        // Layout 설정
+        inputPanel.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Menu 패널 배치
+        // Menu
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
@@ -165,20 +199,20 @@ public class Main {
         gbc.weightx = 1.0;
         inputPanel.add(menuPanel, gbc);
 
-        // Quantity 패널 배치
+        // Quantity
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.gridheight = 1;
         gbc.weightx = 0.1;
         gbc.weighty = 0.1;
-        inputPanel.add(quantityPanel, gbc);
+        inputPanel.add(quantityPanel,gbc);
 
-        // history 패널 배치
+
+        // history
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.weighty = 0.2;
         inputPanel.add(historyPanel, gbc);
-
         return inputPanel;
     }
 
