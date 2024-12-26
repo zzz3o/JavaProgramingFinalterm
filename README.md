@@ -10,8 +10,8 @@ CJU Meal Tickets Management Program은 대학교 내 식권 구매를 간소화�
 이 프로그램은 대학교 식당 이용자를 대상으로 하며, 식권 구매 및 기록 관리의 편리함을 제공하려는 목적을 가지고 있습니다.
 
 ![image](https://github.com/user-attachments/assets/e239d21c-f177-4d8a-944e-7b1473bae9ef)
-
-
+![image](https://github.com/user-attachments/assets/2d7a2b77-eaaa-401f-9765-903ca997b050)
+![image](https://github.com/user-attachments/assets/08609834-1afb-4f34-8e81-c1f94c55fffd)
 
 ---
 
