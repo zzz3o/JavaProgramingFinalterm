@@ -13,10 +13,8 @@ public class Main {
         frame.setSize(320, 568);
         frame.getContentPane().setBackground(ColorPalette.BACKGROUND_COLOR);
 
-        // 타이틀 패널
         JPanel titlePanel = createTitlePanel();
 
-        // 입력 패널
         JPanel inputPanel = createInputPanel();
 
         // 결제 버튼
@@ -27,7 +25,6 @@ public class Main {
         paymentButton.setPreferredSize(new Dimension(260, 56));
         paymentButton.addActionListener(e -> handlePayment());
 
-        // 식당 패널
         restaurantPanel = new RestaurantPanel();
 
         // GridBagLayout을 사용하여 레이아웃 설정
@@ -41,6 +38,13 @@ public class Main {
         gbc.fill = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, 20, 10, 20);
         frame.add(titlePanel, gbc);
+
+        // 입력 패널 추가
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        frame.add(inputPanel, gbc);
+
 
         // 결제 버튼 추가
         gbc.gridx = 0;
@@ -109,6 +113,8 @@ public class Main {
      *   <li>2024-12-23: 각 패널 위치 수정 (Seo  Woojin)</li>
      *   <li>2024-12-24: 패널의 텍스트 위치 변경 (Seo  Woojin)</li>
      *   <li>2024-12-26: 전체 폰트 변경 (Seo  Woojin)</li>
+     *   <li>2024-12-26: history  패널 추가 (Seo  Woojin)</li>
+     *
      * </ul>
      */
     private JPanel createInputPanel() {
@@ -137,14 +143,15 @@ public class Main {
         quantityPanel.setPreferredSize(new Dimension(100, 60));
         quantityPanel.add(quantityField);
 
-        // Amount 패널
-        JPanel amountPanel = new JPanel(new BorderLayout());
-        amountLabel = new JLabel("Amount", SwingConstants.CENTER);
-        amountLabel.setFont(new Font("Inter", Font.PLAIN, 16));
-        amountLabel.setForeground(ColorPalette.Payment_COLOR);
-        amountPanel.setBackground(ColorPalette.ButtonChecked_COLOR); // 배경색 설정
-        amountPanel.setPreferredSize(new Dimension(100, 60)); // 패널 크기 확장
-        amountPanel.add(amountLabel);
+        // history 패널
+        JPanel historyPanel = new JPanel(new BorderLayout());
+        JButton historyButton = new JButton("History");
+        historyButton.setFont(new Font("Inter", Font.BOLD, 16));
+        historyButton.setForeground(ColorPalette.Payment_COLOR);
+        historyButton.setBackground(ColorPalette.ButtonChecked_COLOR);
+        historyButton.setPreferredSize(new Dimension(100, 60));
+        historyButton.addActionListener(e -> showPurchaseHistory());
+        historyPanel.add(historyButton);
 
         // GridBagConstraints 설정
         gbc.fill = GridBagConstraints.BOTH;
@@ -166,11 +173,11 @@ public class Main {
         gbc.weighty = 0.1;
         inputPanel.add(quantityPanel, gbc);
 
-        // Amount 패널 배치
+        // history 패널 배치
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.weighty = 0.2;
-        inputPanel.add(amountPanel, gbc);
+        inputPanel.add(historyPanel, gbc);
 
         return inputPanel;
     }
@@ -192,8 +199,7 @@ public class Main {
      * <ul>
      *   <li>2024-12-22: 최초 생성 (Seo  Woojin)</li>
      *   li>2024-12-22: amountLabel 업데이트 (Seo  Woojin)</li>
-     *   li>2024-12-22: 결제 메세지 업데이트 (Seo  Woojin)</li>
-     *   
+     *   li>2024-12-26: 결제 메시지 업데이트 (Seo  Woojin)</li>
      * </ul>
      */
     private void handlePayment() {
@@ -217,6 +223,32 @@ public class Main {
         }
     }
 
+    /**
+     * 최근 구매 내역을 메시지 창에 표시합니다.
+     * <p>
+     * {@link RestaurantPanel#getRecentHistory()} 메서드를 호출하여
+     * 최근 5개의 구매 내역을 가져오고 이를 메시지 창으로 출력합니다.
+     * </p>
+     *
+     * @author Seo  Woojin
+     *
+     * @created 2024-12-26
+     * @lastModified 2024-12-26
+     *
+     * @changelog
+     * <ul>
+     *   <li>2024-12-26: 최초 생성 (Seo Woojin)</li>
+     * </ul>
+     */
+    private void showPurchaseHistory() {
+        java.util.List<String> history = restaurantPanel.getRecentHistory();
+        StringBuilder historyMessage = new StringBuilder("최근 구매 내역:\n");
+        for (String entry : history) {
+            historyMessage.append(entry).append("\n");
+        }
+
+        JOptionPane.showMessageDialog(frame, historyMessage.toString(), "Purchase History", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     public static void main(String[] args) {
         new Main();
