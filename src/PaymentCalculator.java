@@ -21,6 +21,6 @@ public class PaymentCalculator {
     public static int calculateAmount(String restaurant, int quantity) {
         // 어떤 식당을 선택하냐에 따라 가격 설정
         int price = restaurant.equals("교직원식당") ? Constants.EMPLOYEE_PRICE : Constants.OTHER_PRICE;
-        return quantity * price;
+        return quantity * price ;
     }
 }
